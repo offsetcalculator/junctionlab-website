@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>body{margin:0} a:hover{color:var(--color-accent-300)}</style>
+</helmet>
+<div ref="{{ rootRef }}" style="--color-accent:#ff6b00;--color-accent-100:#fff4ec;--color-accent-200:#ffe4cf;--color-accent-300:#ffc999;--color-accent-400:#ffa95c;--color-accent-500:#ff6b00;--color-accent-600:#c4650f;--color-accent-700:#8f4a10;--color-accent-800:#5c3210;--color-accent-900:#33200f;--color-section:#2a190d;--color-section-glow:#4a2a10;container-type:inline-size;position:relative;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;line-height:1.55;min-height:100%;display:flex;flex-direction:column">
+
+  <header style="position:sticky;top:0;z-index:5;background:color-mix(in srgb, var(--color-bg) 90%, transparent);backdrop-filter:blur(10px)">
+    <div class="nav" style="max-width:1200px;margin:0 auto;width:100%;padding:var(--space-4) clamp(16px,5cqi,48px);gap:var(--space-8)">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:var(--space-3);margin-right:auto;text-decoration:none;color:var(--color-text)">
+        <span class="lighten" style="display:block;position:relative;width:40px;height:40px;overflow:hidden;flex:none;border-radius:50%"><img src="logo.png" alt="JunctionLab" style="position:absolute;left:-20px;top:-11px;width:80px;height:80px;max-width:none"></span>
+        <span style="font-size:18px;font-weight:600;letter-spacing:-0.01em;color:#fff">Junction<span style="color:#ff6b00">Lab</span></span>
+      </a>
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;gap:var(--space-8);align-items:center">
+          <a href="#" onClick="{{ goLessons }}" aria-current="{{ curLessons }}">Lessons</a>
+          <a href="#" onClick="{{ goQuiz }}" aria-current="{{ curQuiz }}">Practice test</a>
+        </nav>
+      </sc-if>
+      <span class="tag tag-outline" style="gap:6px;font-size:12px;padding:4px 10px"><i class="ph ph-map-pin"></i>QLD rules</span>
+    </div>
+  </header>
+
+  <main style="flex:1">
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+
+      <sc-if value="{{ isQuizHero }}" hint-placeholder-val="{{ true }}">
+        <section style="padding:clamp(28px,6cqi,96px) clamp(16px,5cqi,48px) clamp(36px,6cqi,88px)">
+          <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:clamp(32px,6cqi,88px);align-items:center">
+            <div style="display:flex;flex-direction:column;gap:var(--space-8)">
+              <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
+                <span class="tag tag-accent">Australian road rules</span>
+                <span class="text-muted" style="font-size:13px">Queensland live · other states coming soon</span>
+              </div>
+              <h1 style="font-size:clamp(38px,6.2cqi,74px);line-height:1.02;letter-spacing:-0.035em;margin:0;text-wrap:balance">See the road rule before you drive it.</h1>
+              <p style="font-size:clamp(16px,1.8cqi,19px);color:var(--color-neutral-300);max-width:44ch;margin:0;text-wrap:pretty">Short 3D lessons that show each rule on a real street, and a free practice test that explains every answer.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:var(--space-3)">
+                <button class="btn btn-primary" onClick="{{ startQuiz }}" style="font-size:15px;padding:12px 20px">Take the practice test <i class="ph ph-arrow-right"></i></button>
+                <button class="btn btn-secondary" onClick="{{ goLessons }}" style="font-size:15px;padding:12px 20px">Browse lessons</button>
+              </div>
+              <label style="display:flex;align-items:center;gap:var(--space-3);max-width:440px;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:0 var(--space-4);height:46px">
+                <i class="ph ph-magnifying-glass" style="font-size:18px;color:var(--color-neutral-400)"></i>
+                <input value="{{ query }}" onChange="{{ onQuery }}" onKeyDown="{{ onQueryKey }}" placeholder="Search a rule, e.g. roundabout" style="flex:1;border:0;background:transparent;outline:none;font:inherit;font-size:15px;color:var(--color-text)">
+              </label>
+            </div>
+
+            <div class="card elev-md" style="padding:clamp(16px,2.4cqi,28px);gap:var(--space-4);border-radius:var(--radius-lg)">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3)">
+                <span class="card-kicker">Try one now · Merging</span>
+                <span class="text-muted" style="font-size:12px">QLD rules s148</span>
+              </div>
+              <img src="thumb-lane-ends.jpg" alt="Two cars where the left lane ends" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 62%;border-radius:var(--radius-md)">
+              <div style="font-size:clamp(17px,1.8cqi,20px);line-height:1.35;font-weight:500;text-wrap:pretty">Your lane is ending and a lane line runs right to the end. A car is beside you. Who must give way?</div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <sc-for list="{{ teaserOpts }}" as="o" hint-placeholder-count="4">
+                  <button onClick="{{ o.onClick }}" class="btn btn-secondary" style="justify-content:flex-start;text-align:left;gap:var(--space-4);padding:10px 12px;font-size:14px;font-weight:400;min-height:46px">
+                    <span style="width:24px;height:24px;flex:none;border-radius:var(--radius-sm);background:var(--color-neutral-800);display:grid;place-items:center;font-size:12px;font-weight:600">{{ o.letter }}</span>
+                    <span>{{ o.t }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isVideoHero }}" hint-placeholder-val="{{ false }}">
+        <section style="padding:clamp(28px,6cqi,88px) clamp(16px,5cqi,48px) clamp(36px,5cqi,72px)">
+          <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(24px,4cqi,48px)">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:var(--space-8) clamp(32px,6cqi,88px);align-items:end">
+              <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
+                  <span class="tag tag-accent">Australian road rules</span>
+                  <span class="text-muted" style="font-size:13px">Queensland live · other states coming soon</span>
+                </div>
+                <h1 style="font-size:clamp(40px,7cqi,84px);line-height:1;letter-spacing:-0.04em;margin:0;text-wrap:balance">Who goes first? Watch it, then you'll know.</h1>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+                <p style="font-size:clamp(16px,1.8cqi,19px);color:var(--color-neutral-300);max-width:42ch;margin:0;text-wrap:pretty">Every road rule shown on a 3D street in under a minute. Then test yourself with a free practice test that explains each answer.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-3)">
+                  <button class="btn btn-primary" onClick="{{ goLessons }}" style="font-size:15px;padding:12px 20px"><i class="ph ph-play"></i>Watch the lessons</button>
+                  <button class="btn btn-secondary" onClick="{{ startQuiz }}" style="font-size:15px;padding:12px 20px">Take the practice test</button>
+                </div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(10px,1.6cqi,20px)">
+              <sc-for list="{{ heroVideos }}" as="l" hint-placeholder-count="4">
+                <a href="#" onClick="{{ goLessons }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+                  <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-lg);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-md)">
+                    <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
+                    <span style="position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb, var(--color-bg) 70%, transparent);border:1px solid var(--color-accent);color:var(--color-accent);font-size:20px"><i class="ph-fill ph-play"></i></span>
+                    <span style="position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 6px;border-radius:var(--radius-sm);background:color-mix(in srgb, var(--color-bg) 80%, transparent)">{{ l.dur }}</span>
+                  </div>
+                  <div style="font-size:15px;line-height:1.3;font-weight:500;text-wrap:pretty">{{ l.t }}</div>
+                  <div class="text-muted" style="font-size:12px">{{ l.topic }} · {{ l.status }}</div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <section style="padding:clamp(28px,5cqi,64px) clamp(16px,5cqi,48px)">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-8)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4)">
+            <sc-if value="{{ isQuizHero }}" hint-placeholder-val="{{ true }}"><h2 style="font-size:clamp(24px,3cqi,32px);margin:0">Latest lessons</h2></sc-if>
+            <sc-if value="{{ isVideoHero }}" hint-placeholder-val="{{ false }}"><h2 style="font-size:clamp(24px,3cqi,32px);margin:0">Coming soon</h2></sc-if>
+            <button class="btn btn-ghost" onClick="{{ goLessons }}">See all <i class="ph ph-arrow-right"></i></button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(12px,2cqi,24px)">
+            <sc-for list="{{ shelf }}" as="l" hint-placeholder-count="4">
+              <a href="#" onClick="{{ goLessons }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+                <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
+                  <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
+                  <span style="position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 6px;border-radius:var(--radius-sm);background:color-mix(in srgb, var(--color-bg) 80%, transparent)">{{ l.dur }}</span>
+                </div>
+                <div style="font-size:15px;line-height:1.3;font-weight:500;text-wrap:pretty">{{ l.t }}</div>
+                <div class="text-muted" style="font-size:12px">{{ l.topic }} · {{ l.status }}</div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:clamp(28px,5cqi,64px) clamp(16px,5cqi,48px)">
+        <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,5cqi,72px)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <h2 style="font-size:clamp(24px,3cqi,32px);margin:0">Learn by topic</h2>
+            <p class="text-muted" style="margin:0;max-width:36ch">Pick the situation that trips you up. New lessons are added every week.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));column-gap:var(--space-8)">
+            <sc-for list="{{ topics }}" as="t" hint-placeholder-count="8">
+              <a href="#" onClick="{{ goLessons }}" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4) 0;text-decoration:none;color:var(--color-text);background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat bottom / 100% 1px">
+                <span style="width:38px;height:38px;flex:none;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-300);display:grid;place-items:center;font-size:20px"><i class="ph {{ t.icon }}"></i></span>
+                <span style="display:flex;flex-direction:column;flex:1;min-width:0"><span style="font-weight:500">{{ t.name }}</span><span class="text-muted" style="font-size:12px">{{ t.count }}</span></span>
+                <i class="ph ph-caret-right" style="color:var(--color-neutral-500)"></i>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:clamp(28px,5cqi,64px) clamp(16px,5cqi,48px)">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-8)">
+          <h2 style="font-size:clamp(24px,3cqi,32px);margin:0">How it works</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(20px,4cqi,56px)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <span style="width:28px;height:2px;background:var(--color-accent)"></span>
+              <span class="text-muted" style="font-size:13px">01</span>
+              <h4 style="margin:0">Watch the rule</h4>
+              <p class="text-muted" style="margin:0">See it happen on a 3D street in under a minute.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <span style="width:28px;height:2px;background:var(--color-accent)"></span>
+              <span class="text-muted" style="font-size:13px">02</span>
+              <h4 style="margin:0">Practise the questions</h4>
+              <p class="text-muted" style="margin:0">Answer test-style questions with a plain explanation for each one.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <span style="width:28px;height:2px;background:var(--color-accent)"></span>
+              <span class="text-muted" style="font-size:13px">03</span>
+              <h4 style="margin:0">Fix what you missed</h4>
+              <p class="text-muted" style="margin:0">Review the ones you got wrong and watch that lesson again.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </sc-if>
+
+    <sc-if value="{{ isLessons }}" hint-placeholder-val="{{ false }}">
+      <section style="padding:clamp(24px,4cqi,56px) clamp(16px,5cqi,48px) clamp(40px,6cqi,80px)">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-8)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div class="text-muted" style="font-size:13px"><a href="#" onClick="{{ goHome }}">Home</a> › Lessons</div>
+            <h1 style="font-size:clamp(32px,5cqi,52px);letter-spacing:-0.03em;margin:0">All lessons</h1>
+            <p class="text-muted" style="margin:0;max-width:56ch">Australian road rules, one situation at a time. Queensland lessons are live; other states are on the way.</p>
+            <p class="text-muted" style="margin:0;font-size:13px;max-width:64ch;display:flex;gap:6px;align-items:flex-start"><i class="ph ph-info" style="margin-top:3px"></i><span>Lessons show common situations in a simplified way. Road rules can change: always follow the signs.</span></p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-8);align-items:center;justify-content:space-between">
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <sc-for list="{{ cats }}" as="c" hint-placeholder-count="7">
+                <button class="{{ c.cls }}" onClick="{{ c.onClick }}" style="padding:6px 12px;font-size:13px">{{ c.name }}</button>
+              </sc-for>
+            </div>
+            <div style="display:inline-flex;border:1px solid var(--color-divider);border-radius:var(--radius-md);overflow:hidden;font-size:13px">
+              <span style="padding:6px 12px;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent)">QLD</span>
+              <span style="padding:6px 12px;border-left:1px solid var(--color-divider);opacity:0.45">NSW · soon</span>
+              <span style="padding:6px 12px;border-left:1px solid var(--color-divider);opacity:0.45">VIC · soon</span>
+            </div>
+          </div>
+          <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:var(--space-3);align-items:center;font-size:14px"><span class="text-muted">Results for “{{ query }}”</span><button class="btn btn-ghost" onClick="{{ clearQuery }}">Clear</button></div>
+          </sc-if>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(12px,2cqi,24px)">
+            <sc-for list="{{ lessonList }}" as="l" hint-placeholder-count="8">
+              <a href="#" onClick="{{ noop }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+                <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
+                  <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
+                  <span style="position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 6px;border-radius:var(--radius-sm);background:color-mix(in srgb, var(--color-bg) 80%, transparent)">{{ l.dur }}</span>
+                </div>
+                <div style="font-size:15px;line-height:1.3;font-weight:500;text-wrap:pretty">{{ l.t }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="{{ l.tagCls }}">{{ l.status }}</span><span class="text-muted" style="font-size:12px">{{ l.topic }}</span></div>
+              </a>
+            </sc-for>
+          </div>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <p class="text-muted" style="margin:0">No lesson yet. Try “merge” or “roundabout”.</p>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
+      <section style="padding:clamp(24px,4cqi,56px) clamp(16px,5cqi,48px) clamp(40px,6cqi,80px)">
+        <div style="max-width:1200px;margin:0 auto">
+          <div style="max-width:720px;display:flex;flex-direction:column;gap:var(--space-8)">
+
+            <sc-if value="{{ qIsStart }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+                <div class="text-muted" style="font-size:13px"><a href="#" onClick="{{ goHome }}">Home</a> › Practice test</div>
+                <h1 style="font-size:clamp(32px,5cqi,52px);letter-spacing:-0.03em;margin:0;text-wrap:balance">Could you pass the learner test today?</h1>
+                <p style="margin:0;font-size:17px;color:var(--color-neutral-300);max-width:52ch;text-wrap:pretty">10 questions on the Queensland rules people get wrong most. Each answer is explained, with a lesson to watch where we have one.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4)">
+                  <div class="card elev-sm" style="padding:var(--space-6)"><span class="card-title">10 questions</span><span class="card-body">About 5 minutes</span></div>
+                  <div class="card elev-sm" style="padding:var(--space-6)"><span class="card-title">Every answer explained</span><span class="card-body">With the rule number, and a lesson to watch where we have one.</span></div>
+                </div>
+                <div><button class="btn btn-primary" onClick="{{ beginQuiz }}" style="font-size:15px;padding:12px 22px">Start the test <i class="ph ph-arrow-right"></i></button></div>
+                <p class="text-muted" style="margin:0;font-size:13px;max-width:60ch">This is a practice test made by JunctionLab, not the official learner test. Use it to study alongside the Queensland Road Rules.</p>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ qIsQ }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+                <div style="display:flex;justify-content:space-between;font-size:13px" class="text-muted"><span>Question {{ qNum }} of {{ qTotal }}</span><span>{{ score }} correct</span></div>
+                <div style="height:4px;border-radius:4px;background:var(--color-neutral-800);overflow:hidden"><div style="height:100%;width:{{ progress }};background:var(--color-accent);transition:width .25s"></div></div>
+              </div>
+              <div class="card elev-md" style="padding:clamp(16px,3cqi,32px);gap:var(--space-6);border-radius:var(--radius-lg)">
+                <span class="card-kicker">{{ Q.c }}</span>
+                <sc-if value="{{ qImg }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ qImg }}" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 62%;border-radius:var(--radius-md)">
+                </sc-if>
+                <div style="font-size:clamp(18px,2.2cqi,22px);line-height:1.35;font-weight:500;text-wrap:pretty">{{ Q.q }}</div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                  <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+                    <button onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:var(--space-4);text-align:left;width:100%;min-height:50px;padding:10px 12px;border-radius:var(--radius-md);font:inherit;font-size:15px;color:var(--color-text);cursor:pointer;border:1px solid {{ o.border }};background:{{ o.bg }}">
+                      <span style="width:26px;height:26px;flex:none;border-radius:var(--radius-sm);display:grid;place-items:center;font-size:12px;font-weight:600;background:{{ o.chip }};color:{{ o.chipInk }}">{{ o.letter }}</span>
+                      <span>{{ o.t }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6);border-radius:var(--radius-md);background:var(--color-bg)">
+                    <div style="font-weight:600;color:{{ verdictColor }}">{{ verdict }}</div>
+                    <p style="margin:0;color:var(--color-neutral-200)">{{ Q.e }}</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
+                      <span class="tag tag-neutral">QLD rules {{ Q.r }}</span>
+                      <sc-if value="{{ Q.v }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ goLessons }}"><i class="ph ph-play-circle"></i>Watch the lesson</button></sc-if>
+                    </div>
+                  </div>
+                  <div><button class="btn btn-primary" onClick="{{ next }}" style="font-size:15px;padding:12px 22px">{{ nextLabel }} <i class="ph ph-arrow-right"></i></button></div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ qIsResult }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+                <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase" class="text-muted">Your result</span>
+                <div style="display:flex;align-items:baseline;gap:var(--space-2)"><span style="font-size:clamp(72px,12cqi,120px);line-height:0.9;letter-spacing:-0.05em;font-weight:500">{{ score }}</span><span class="text-muted" style="font-size:28px">/ {{ qTotal }}</span></div>
+                <p style="margin:0;font-size:18px;color:{{ resultColor }}">{{ resultMsg }}</p>
+                <sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ false }}">
+                  <h3 style="margin:var(--space-4) 0 0;font-size:20px">Review what you missed</h3>
+                  <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+                    <sc-for list="{{ missedList }}" as="m" hint-placeholder-count="2">
+                      <div class="card elev-sm" style="padding:var(--space-6);gap:var(--space-3)">
+                        <span class="card-kicker">{{ m.c }}</span>
+                        <div style="font-weight:500;line-height:1.35">{{ m.q }}</div>
+                        <p style="margin:0;font-size:14px;color:var(--color-neutral-300)"><span style="color:{{ okColor }}">Answer: {{ m.ans }}.</span> {{ m.e }}</p>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-3)">
+                  <button class="btn btn-primary" onClick="{{ beginQuiz }}" style="font-size:15px;padding:12px 22px">Try again</button>
+                  <button class="btn btn-secondary" onClick="{{ goLessons }}" style="font-size:15px;padding:12px 22px">Watch the lessons</button>
+                </div>
+              </div>
+            </sc-if>
+
+          </div>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+
+  <footer style="padding:clamp(28px,4cqi,48px) clamp(16px,5cqi,48px) clamp(28px,4cqi,40px);background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat top / 100% 1px">
+    <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-8)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-8);justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:34ch">
+          <span style="font-size:17px;font-weight:600;color:#fff">Junction<span style="color:#ff6b00">Lab</span></span>
+          <span class="text-muted" style="font-size:13px">Australian road rules, explained in 3D.</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-8);font-size:14px">
+          <a href="#" onClick="{{ goLessons }}" style="color:var(--color-text);text-decoration:none">Lessons</a>
+          <a href="#" onClick="{{ goQuiz }}" style="color:var(--color-text);text-decoration:none">Practice test</a>
+          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">YouTube</a>
+          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">TikTok</a>
+          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">Facebook</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2);box-sizing:border-box;margin:0 -16px;padding:var(--space-4) 16px;text-align:justify;hyphens:auto;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);font-size:11px;line-height:1.5;color:var(--color-neutral-400)">
+        <p style="margin:0"><span style="color:var(--color-neutral-200);font-weight:500">General information only, as per the Queensland Road Rules in force on 15 November 2026.</span> Not legal advice. Road rules differ between states and can change: always follow the signs. JunctionLab is an independent channel. The practice test is written by JunctionLab and is not the official test.</p>
+        <p style="margin:0">© 2026 JunctionLab. Videos may not be reused without permission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <nav style="position:sticky;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(3,1fr);background:var(--color-surface);box-shadow:var(--shadow-sm);padding:6px 4px 10px">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;text-decoration:none;min-height:44px;justify-content:center;color:{{ tabHome }}"><i class="ph ph-house" style="font-size:22px"></i>Home</a>
+      <a href="#" onClick="{{ goLessons }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;text-decoration:none;min-height:44px;justify-content:center;color:{{ tabLessons }}"><i class="ph ph-play-circle" style="font-size:22px"></i>Lessons</a>
+      <a href="#" onClick="{{ goQuiz }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;text-decoration:none;min-height:44px;justify-content:center;color:{{ tabQuiz }}"><i class="ph ph-check-square" style="font-size:22px"></i>Practice test</a>
+    </nav>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;quiz&quot;,&quot;video&quot;],&quot;default&quot;:&quot;quiz&quot;,&quot;tsType&quot;:&quot;'quiz' | 'video'&quot;}}">
+const LESSONS = [
+  {id:'lane-ends', t:'Your lane is ending. Who goes first?', topic:'Merging', dur:'1:01', live:true},
+  {id:'roundabout', t:'Roundabout: go or wait?', topic:'Roundabouts', dur:'0:31', live:true},
+  {id:'keep-left', t:'The right lane mistake most drivers make', topic:'Highways', dur:'0:50', live:true},
+  {id:'queue', t:'Someone pushes in. Do you let them?', topic:'Lane changes', dur:'0:54', live:true},
+  {id:'right-green', t:'Green light, turning right: your turn?', topic:'Intersections', dur:'0:33'},
+  {id:'high-beam', t:'High beam: when do you have to dip?', topic:'Night driving', dur:'0:35'},
+  {id:'truck', t:'Passed a truck: when can you move back?', topic:'Highways', dur:'0:34'},
+  {id:'fog', t:'Hazard lights in fog: myth or rule?', topic:'Night driving', dur:'0:40'}
+].map(l => ({...l, img:'thumb-'+l.id+'.jpg', status:l.live?'On YouTube':'Coming soon', tagCls:l.live?'tag tag-accent':'tag tag-neutral'}));
+
+const QUESTIONS = [
+  {c:'Merging', d:'lane-ends', q:"Your lane is ending and a lane line runs right to the end. A car is beside you in the next lane. Who must give way?",
+   o:["The car that is further ahead","You, because you're moving into their lane","The car in the other lane","Whoever indicates first"], a:1,
+   e:"When you move across a lane line, you give way to vehicles in the lane you move into, even if your lane is the one ending.", r:"s148", v:true},
+  {c:'Merging', q:"Two lines of traffic merge and there is no lane line between them. Who gives way?",
+   o:["The car on the left","The car on the right","You give way to any vehicle ahead of you","The bigger vehicle"], a:2,
+   e:"With no lane line, you give way to any vehicle that is ahead of you.", r:"s149", v:true},
+  {c:'Roundabouts', d:'roundabout', q:"You're about to enter a roundabout. A car is already driving around it. What do you do?",
+   o:["Enter first if you got there first","Give way to the car already in the roundabout","Give way only to cars on your left","Flash your lights and go"], a:1,
+   e:"When you enter a roundabout, you give way to any vehicle already in it.", r:"s114"},
+  {c:'Give way', q:"You reach a stop sign and the road is completely empty. What must you do?",
+   o:["Slow down and roll through","Stop completely, then go when it's safe","Stop only if a car is coming","Nothing, the road is empty"], a:1,
+   e:"A stop sign means stop completely every time: at the stop line, or where you can see the intersection if there's no line. Then give way.", r:"s67"},
+  {c:'Give way', q:"You're on a road that ends at a T-intersection. A car is coming along the road that continues. Who goes first?",
+   o:["You, if you're turning left","The car on the road that continues","Whoever is on the right","Whoever arrives first"], a:1,
+   e:"The driver on the road that ends gives way to vehicles on the road that continues, and to people crossing it.", r:"s73"},
+  {c:'Traffic lights', q:"The light turns yellow as you approach. You could stop safely. What should you do?",
+   o:["Speed up to get through","Stop","Keep going at the same speed","Change lanes"], a:1,
+   e:"On yellow you must stop if you can do it safely. Yellow is the start of red, not the end of green.", r:"s57"},
+  {c:'Intersections', d:'right-green', q:"You're turning right on a green circle (no arrow). An oncoming car is going straight. Who goes first?",
+   o:["You, because your light is green","The oncoming car","Whoever started moving first","You, if you indicated"], a:1,
+   e:"Turning right on a green circle, you give way to oncoming vehicles going straight or turning left. A green arrow is different.", r:"s62"},
+  {c:'Highways', q:"On a multi-lane road with a 100 km/h limit, can you cruise in the right lane?",
+   o:["Yes, any lane is fine","No, stay out of it unless overtaking or another exception applies","Only at night","Only if you're at the speed limit"], a:1,
+   e:"On a multi-lane road with a limit of 90 km/h or more, or where a keep left unless overtaking sign applies, stay out of the right lane unless an exception applies, such as overtaking or turning right.", r:"s130", v:true},
+  {c:'Night driving', q:"Driving at night on high beam, how close can an oncoming car get before you must dip?",
+   o:["50 metres","100 metres","200 metres","Only when they flash you"], a:2,
+   e:"Switch to low beam when an oncoming car is less than 200 metres away, and when you're less than 200 metres behind a car.", r:"s218"},
+  {c:'Emergency vehicles', q:"An emergency vehicle with lights and siren is coming up behind you. What do you do?",
+   o:["Stop exactly where you are","Speed up to stay ahead of it","Move out of its path as soon as it's safe","Keep driving as normal"], a:2,
+   e:"Never move into its path, and move out of its way as soon as it's safe to do so.", r:"s78"}
+];
+
+const TOPICS = [['Merging','ph-arrows-merge'],['Roundabouts','ph-arrows-clockwise'],['Intersections','ph-traffic-signal'],['Highways','ph-road-horizon'],['Night driving','ph-moon'],['Lane changes','ph-arrows-left-right'],['Give way','ph-warning'],['School zones','ph-student']];
+
+const OK = 'oklch(0.74 0.13 155)', BAD = 'oklch(0.70 0.15 25)';
+
+class Component extends DCLogic {
+  state = {page:'home', narrow:false, cat:'All', query:'', qStage:'start', qi:0, score:0, picked:null, missed:[], email:'', sent:false};
+  rootRef = React.createRef();
+
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (!el) return;
+    this.ro = new ResizeObserver(([e]) => {
+      const n = e.contentRect.width < 720;
+      if (n !== this.state.narrow) this.setState({narrow:n});
+    });
+    this.ro.observe(el);
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); }
+
+  go(page, extra) { return e => { e && e.preventDefault && e.preventDefault(); this.setState({page, ...(extra||{})}); }; }
+
+  pick(k) {
+    if (this.state.picked !== null) return;
+    const Q = QUESTIONS[this.state.qi], ok = k === Q.a;
+    this.setState(s => ({picked:k, score:s.score+(ok?1:0), missed:ok?s.missed:[...s.missed, s.qi]}));
+  }
+
+  renderVals() {
+    const s = this.state, hero = this.props.hero ?? 'quiz';
+    const q = s.query.trim().toLowerCase();
+    const filtered = LESSONS.filter(l => (s.cat==='All'||l.topic===s.cat) && (!q || (l.t+' '+l.topic).toLowerCase().includes(q)));
+    const Q = QUESTIONS[s.qi], answered = s.picked !== null;
+    const accentInk = 'var(--color-text)';
+    const opts = Q.o.map((t,k) => {
+      const right = answered && k===Q.a, wrong = answered && k===s.picked && k!==Q.a;
+      return {t, letter:'ABCD'[k], onClick:()=>this.pick(k),
+        border: right?OK:wrong?BAD:'var(--color-divider)',
+        bg: right?`color-mix(in oklch, ${OK} 14%, transparent)`:wrong?`color-mix(in oklch, ${BAD} 14%, transparent)`:'transparent',
+        chip: right?OK:wrong?BAD:'var(--color-neutral-800)',
+        chipInk: right||wrong?'var(--color-bg)':accentInk};
+    });
+    const pass = s.score >= 9;
+    const tabC = p => s.page===p ? 'var(--color-accent)' : 'var(--color-neutral-400)';
+    return {
+      rootRef:this.rootRef,
+      wide:!s.narrow, narrow:s.narrow,
+      isHome:s.page==='home', isLessons:s.page==='lessons', isQuiz:s.page==='quiz',
+      isQuizHero:hero!=='video', isVideoHero:hero==='video',
+      curLessons:s.page==='lessons'?'page':undefined, curQuiz:s.page==='quiz'?'page':undefined,
+      tabHome:tabC('home'), tabLessons:tabC('lessons'), tabQuiz:tabC('quiz'),
+      noop:e=>e&&e.preventDefault&&e.preventDefault(),
+      goHome:this.go('home'), goLessons:this.go('lessons'), goQuiz:this.go('quiz'),
+      startQuiz:this.go('quiz', {qStage:'q', qi:0, score:0, picked:null, missed:[]}),
+      beginQuiz:()=>this.setState({qStage:'q', qi:0, score:0, picked:null, missed:[]}),
+      teaserOpts:QUESTIONS[0].o.map((t,k)=>({t, letter:'ABCD'[k], onClick:()=>this.setState({page:'quiz', qStage:'q', qi:0, score:0, picked:null, missed:[]}, ()=>this.pick(k))})),
+      query:s.query, hasQuery:!!q,
+      onQuery:e=>this.setState({query:e.target.value}),
+      onQueryKey:e=>{ if(e.key==='Enter') this.setState({page:'lessons', cat:'All'}); },
+      clearQuery:()=>this.setState({query:''}),
+      heroVideos:LESSONS.slice(0,4),
+      shelf:hero==='video'?LESSONS.slice(4,8):LESSONS.slice(0,4),
+      topics:TOPICS.map(([name,icon])=>{const k=LESSONS.filter(l=>l.topic===name).length; return {name, icon, count:k?k+(k>1?' lessons':' lesson'):'Coming soon'};}),
+      cats:['All', ...new Set(LESSONS.map(l=>l.topic))].map(c=>({name:c, cls:c===s.cat?'btn btn-primary':'btn btn-secondary', onClick:()=>this.setState({cat:c})})),
+      lessonList:filtered, noResults:filtered.length===0,
+      email:s.email, sent:s.sent, notSent:!s.sent,
+      onEmail:e=>this.setState({email:e.target.value}),
+      sendSheet:()=>{ if(/\S+@\S+\.\S+/.test(s.email)) this.setState({sent:true}); },
+      qIsStart:s.qStage==='start', qIsQ:s.qStage==='q', qIsResult:s.qStage==='result',
+      Q, qImg:Q.d?'thumb-'+Q.d+'.jpg':null, opts, answered,
+      qNum:s.qi+1, qTotal:QUESTIONS.length, score:s.score,
+      progress:((s.qi+(answered?1:0))/QUESTIONS.length*100)+'%',
+      verdict:answered&&s.picked===Q.a?'Correct':'Not quite', verdictColor:answered&&s.picked===Q.a?OK:BAD,
+      nextLabel:s.qi<QUESTIONS.length-1?'Next question':'See my result',
+      next:()=>this.setState(st=>st.qi<QUESTIONS.length-1?{qi:st.qi+1, picked:null}:{qStage:'result'}),
+      resultMsg:pass?'Great result. You know these rules well.':'Worth another go. Review the ones you missed below.',
+      resultColor:pass?OK:'var(--color-neutral-200)', okColor:OK,
+      hasMissed:s.missed.length>0,
+      missedList:s.missed.map(i=>({c:QUESTIONS[i].c, q:QUESTIONS[i].q, ans:QUESTIONS[i].o[QUESTIONS[i].a], e:QUESTIONS[i].e}))
+    };
+  }
+}
+</script>
+</body>
+</html>
