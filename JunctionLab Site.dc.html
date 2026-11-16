@@ -94,7 +94,7 @@
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(10px,1.6cqi,20px)">
               <sc-for list="{{ heroVideos }}" as="l" hint-placeholder-count="4">
-                <a href="#" onClick="{{ goLessons }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+                <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" onClick="{{ l.onClick }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
                   <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-lg);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-md)">
                     <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
                     <span style="position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb, var(--color-bg) 70%, transparent);border:1px solid var(--color-accent);color:var(--color-accent);font-size:20px"><i class="ph-fill ph-play"></i></span>
@@ -118,7 +118,7 @@
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(12px,2cqi,24px)">
             <sc-for list="{{ shelf }}" as="l" hint-placeholder-count="4">
-              <a href="#" onClick="{{ goLessons }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+              <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" onClick="{{ l.onClick }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
                 <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
                   <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
                   <span style="position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 6px;border-radius:var(--radius-sm);background:color-mix(in srgb, var(--color-bg) 80%, transparent)">{{ l.dur }}</span>
@@ -203,7 +203,7 @@
           </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(12px,2cqi,24px)">
             <sc-for list="{{ lessonList }}" as="l" hint-placeholder-count="8">
-              <a href="#" onClick="{{ noop }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
+              <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" onClick="{{ l.onClick }}" style="display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:var(--color-text)">
                 <div style="position:relative;aspect-ratio:9/16;border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
                   <img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
                   <span style="position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 6px;border-radius:var(--radius-sm);background:color-mix(in srgb, var(--color-bg) 80%, transparent)">{{ l.dur }}</span>
@@ -264,7 +264,7 @@
                     <p style="margin:0;color:var(--color-neutral-200)">{{ Q.e }}</p>
                     <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
                       <span class="tag tag-neutral">QLD rules {{ Q.r }}</span>
-                      <sc-if value="{{ Q.v }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ goLessons }}"><i class="ph ph-play-circle"></i>Watch the lesson</button></sc-if>
+                      <sc-if value="{{ Q.v }}" hint-placeholder-val="{{ false }}"><a class="btn btn-ghost" href="{{ watchUrl }}" target="_blank" rel="noopener"><i class="ph ph-play-circle"></i>Watch the lesson</a></sc-if>
                     </div>
                   </div>
                   <div><button class="btn btn-primary" onClick="{{ next }}" style="font-size:15px;padding:12px 22px">{{ nextLabel }} <i class="ph ph-arrow-right"></i></button></div>
@@ -312,9 +312,9 @@
         <div style="display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-8);font-size:14px">
           <a href="#" onClick="{{ goLessons }}" style="color:var(--color-text);text-decoration:none">Lessons</a>
           <a href="#" onClick="{{ goQuiz }}" style="color:var(--color-text);text-decoration:none">Practice test</a>
-          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">YouTube</a>
-          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">TikTok</a>
-          <a href="#" onClick="{{ noop }}" style="color:var(--color-text);text-decoration:none">Facebook</a>
+          <a href="https://www.youtube.com/@JunctionLab" target="_blank" rel="noopener" style="color:var(--color-text);text-decoration:none">YouTube</a>
+          <a href="https://www.tiktok.com/@junctionlab" target="_blank" rel="noopener" style="color:var(--color-text);text-decoration:none">TikTok</a>
+          <a href="https://www.facebook.com/profile.php?id=61596110926197" target="_blank" rel="noopener" style="color:var(--color-text);text-decoration:none">Facebook</a>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:var(--space-2);box-sizing:border-box;margin:0 -16px;padding:var(--space-4) 16px;text-align:justify;hyphens:auto;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);font-size:11px;line-height:1.5;color:var(--color-neutral-400)">
@@ -335,26 +335,27 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;quiz&quot;,&quot;video&quot;],&quot;default&quot;:&quot;quiz&quot;,&quot;tsType&quot;:&quot;'quiz' | 'video'&quot;}}">
 const LESSONS = [
-  {id:'lane-ends', t:'Your lane is ending. Who goes first?', topic:'Merging', dur:'1:01', live:true},
-  {id:'roundabout', t:'Roundabout: go or wait?', topic:'Roundabouts', dur:'0:31', live:true},
-  {id:'keep-left', t:'The right lane mistake most drivers make', topic:'Highways', dur:'0:50', live:true},
-  {id:'queue', t:'Someone pushes in. Do you let them?', topic:'Lane changes', dur:'0:54', live:true},
-  {id:'right-green', t:'Green light, turning right: your turn?', topic:'Intersections', dur:'0:33'},
+  {id:'lane-ends', t:'Your lane is ending. Who goes first?', topic:'Merging', dur:'1:01', yt:'-qYlSQBVnd8'},
+  {id:'roundabout', t:'Roundabout: go or wait?', topic:'Roundabouts', dur:'0:31', yt:'bdw1UiIeKW4'},
+  {id:'keep-left', t:'The right lane mistake most drivers make', topic:'Highways', dur:'0:50', yt:'Krve-6LPgLY'},
+  {id:'queue', t:'Someone pushes in. Do you let them?', topic:'Lane changes', dur:'0:54', yt:'Biig1g1dJt8'},
+  {id:'right-green', t:'Green light, turning right: your turn?', topic:'Intersections', dur:'0:33', yt:'lIuLTjOwoU0'},
   {id:'high-beam', t:'High beam: when do you have to dip?', topic:'Night driving', dur:'0:35'},
   {id:'truck', t:'Passed a truck: when can you move back?', topic:'Highways', dur:'0:34'},
   {id:'fog', t:'Hazard lights in fog: myth or rule?', topic:'Night driving', dur:'0:40'}
-].map(l => ({...l, img:'thumb-'+l.id+'.jpg', status:l.live?'On YouTube':'Coming soon', tagCls:l.live?'tag tag-accent':'tag tag-neutral'}));
+].map(l => ({...l, live:!!l.yt, url:l.yt?'https://www.youtube.com/shorts/'+l.yt:null, href:l.yt?'https://www.youtube.com/shorts/'+l.yt:'#', target:l.yt?'_blank':'_self', img:'thumb-'+l.id+'.jpg', status:l.yt?'On YouTube':'Coming soon', tagCls:l.yt?'tag tag-accent':'tag tag-neutral'}));
+const LESSON_URL = Object.fromEntries(LESSONS.filter(l=>l.yt).map(l=>[l.id,l.url]));
 
 const QUESTIONS = [
   {c:'Merging', d:'lane-ends', q:"Your lane is ending and a lane line runs right to the end. A car is beside you in the next lane. Who must give way?",
    o:["The car that is further ahead","You, because you're moving into their lane","The car in the other lane","Whoever indicates first"], a:1,
-   e:"When you move across a lane line, you give way to vehicles in the lane you move into, even if your lane is the one ending.", r:"s148", v:true},
+   e:"When you move across a lane line, you give way to vehicles in the lane you move into, even if your lane is the one ending.", r:"s148", v:"lane-ends"},
   {c:'Merging', q:"Two lines of traffic merge and there is no lane line between them. Who gives way?",
    o:["The car on the left","The car on the right","You give way to any vehicle ahead of you","The bigger vehicle"], a:2,
-   e:"With no lane line, you give way to any vehicle that is ahead of you.", r:"s149", v:true},
+   e:"With no lane line, you give way to any vehicle that is ahead of you.", r:"s149", v:"lane-ends"},
   {c:'Roundabouts', d:'roundabout', q:"You're about to enter a roundabout. A car is already driving around it. What do you do?",
    o:["Enter first if you got there first","Give way to the car already in the roundabout","Give way only to cars on your left","Flash your lights and go"], a:1,
-   e:"When you enter a roundabout, you give way to any vehicle already in it.", r:"s114"},
+   e:"When you enter a roundabout, you give way to any vehicle already in it.", r:"s114", v:"roundabout"},
   {c:'Give way', q:"You reach a stop sign and the road is completely empty. What must you do?",
    o:["Slow down and roll through","Stop completely, then go when it's safe","Stop only if a car is coming","Nothing, the road is empty"], a:1,
    e:"A stop sign means stop completely every time: at the stop line, or where you can see the intersection if there's no line. Then give way.", r:"s67"},
@@ -366,10 +367,10 @@ const QUESTIONS = [
    e:"On yellow you must stop if you can do it safely. Yellow is the start of red, not the end of green.", r:"s57"},
   {c:'Intersections', d:'right-green', q:"You're turning right on a green circle (no arrow). An oncoming car is going straight. Who goes first?",
    o:["You, because your light is green","The oncoming car","Whoever started moving first","You, if you indicated"], a:1,
-   e:"Turning right on a green circle, you give way to oncoming vehicles going straight or turning left. A green arrow is different.", r:"s62"},
+   e:"Turning right on a green circle, you give way to oncoming vehicles going straight or turning left. A green arrow is different.", r:"s62", v:"right-green"},
   {c:'Highways', q:"On a multi-lane road with a 100 km/h limit, can you cruise in the right lane?",
    o:["Yes, any lane is fine","No, stay out of it unless overtaking or another exception applies","Only at night","Only if you're at the speed limit"], a:1,
-   e:"On a multi-lane road with a limit of 90 km/h or more, or where a keep left unless overtaking sign applies, stay out of the right lane unless an exception applies, such as overtaking or turning right.", r:"s130", v:true},
+   e:"On a multi-lane road with a limit of 90 km/h or more, or where a keep left unless overtaking sign applies, stay out of the right lane unless an exception applies, such as overtaking or turning right.", r:"s130", v:"keep-left"},
   {c:'Night driving', q:"Driving at night on high beam, how close can an oncoming car get before you must dip?",
    o:["50 metres","100 metres","200 metres","Only when they flash you"], a:2,
    e:"Switch to low beam when an oncoming car is less than 200 metres away, and when you're less than 200 metres behind a car.", r:"s218"},
@@ -420,6 +421,8 @@ class Component extends DCLogic {
         chipInk: right||wrong?'var(--color-bg)':accentInk};
     });
     const pass = s.score >= 9;
+    const goL = this.go('lessons');
+    const card = l => ({...l, onClick: l.yt ? undefined : goL});
     const tabC = p => s.page===p ? 'var(--color-accent)' : 'var(--color-neutral-400)';
     return {
       rootRef:this.rootRef,
@@ -437,16 +440,16 @@ class Component extends DCLogic {
       onQuery:e=>this.setState({query:e.target.value}),
       onQueryKey:e=>{ if(e.key==='Enter') this.setState({page:'lessons', cat:'All'}); },
       clearQuery:()=>this.setState({query:''}),
-      heroVideos:LESSONS.slice(0,4),
-      shelf:hero==='video'?LESSONS.slice(4,8):LESSONS.slice(0,4),
+      heroVideos:LESSONS.slice(0,4).map(card),
+      shelf:(hero==='video'?LESSONS.slice(4,8):LESSONS.slice(0,4)).map(card),
       topics:TOPICS.map(([name,icon])=>{const k=LESSONS.filter(l=>l.topic===name).length; return {name, icon, count:k?k+(k>1?' lessons':' lesson'):'Coming soon'};}),
       cats:['All', ...new Set(LESSONS.map(l=>l.topic))].map(c=>({name:c, cls:c===s.cat?'btn btn-primary':'btn btn-secondary', onClick:()=>this.setState({cat:c})})),
-      lessonList:filtered, noResults:filtered.length===0,
+      lessonList:filtered.map(card), noResults:filtered.length===0,
       email:s.email, sent:s.sent, notSent:!s.sent,
       onEmail:e=>this.setState({email:e.target.value}),
       sendSheet:()=>{ if(/\S+@\S+\.\S+/.test(s.email)) this.setState({sent:true}); },
       qIsStart:s.qStage==='start', qIsQ:s.qStage==='q', qIsResult:s.qStage==='result',
-      Q, qImg:Q.d?'thumb-'+Q.d+'.jpg':null, opts, answered,
+      Q, watchUrl:Q.v?LESSON_URL[Q.v]:null, qImg:Q.d?'thumb-'+Q.d+'.jpg':null, opts, answered,
       qNum:s.qi+1, qTotal:QUESTIONS.length, score:s.score,
       progress:((s.qi+(answered?1:0))/QUESTIONS.length*100)+'%',
       verdict:answered&&s.picked===Q.a?'Correct':'Not quite', verdictColor:answered&&s.picked===Q.a?OK:BAD,
