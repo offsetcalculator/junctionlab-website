@@ -335,14 +335,16 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;quiz&quot;,&quot;video&quot;],&quot;default&quot;:&quot;quiz&quot;,&quot;tsType&quot;:&quot;'quiz' | 'video'&quot;}}">
 const LESSONS = [
-  {id:'lane-ends', t:'Your lane is ending. Who goes first?', topic:'Merging', dur:'1:01', yt:'-qYlSQBVnd8'},
-  {id:'roundabout', t:'Roundabout: go or wait?', topic:'Roundabouts', dur:'0:31', yt:'bdw1UiIeKW4'},
-  {id:'keep-left', t:'The right lane mistake most drivers make', topic:'Highways', dur:'0:50', yt:'Krve-6LPgLY'},
+  {id:'yellow-turn', t:'Stuck mid-turn on yellow: go, stay or back out?', topic:'Intersections', dur:'0:50', yt:'3wcVeqMLIyk'},
+  {id:'edge-line', t:'Is the road shoulder a spare lane?', topic:'Lane changes', dur:'0:54', yt:'NsaQY4sPDZ4'},
+  {id:'high-beam', t:'High beam: when do you have to dip?', topic:'Night driving', dur:'0:25', yt:'h50f1x4nisk'},
+  {id:'fog', t:'Hazard lights in fog: myth or rule?', topic:'Night driving', dur:'0:41', yt:'_mzF6N38Ta8'},
+  {id:'right-green', t:'Green light, turning right: your turn?', topic:'Intersections', dur:'0:34', yt:'lIuLTjOwoU0'},
   {id:'queue', t:'Someone pushes in. Do you let them?', topic:'Lane changes', dur:'0:54', yt:'Biig1g1dJt8'},
-  {id:'right-green', t:'Green light, turning right: your turn?', topic:'Intersections', dur:'0:33', yt:'lIuLTjOwoU0'},
-  {id:'high-beam', t:'High beam: when do you have to dip?', topic:'Night driving', dur:'0:35'},
-  {id:'truck', t:'Passed a truck: when can you move back?', topic:'Highways', dur:'0:34'},
-  {id:'fog', t:'Hazard lights in fog: myth or rule?', topic:'Night driving', dur:'0:40'}
+  {id:'keep-left', t:'The right lane mistake most drivers make', topic:'Highways', dur:'0:50', yt:'Krve-6LPgLY'},
+  {id:'roundabout', t:'Roundabout: go or wait?', topic:'Roundabouts', dur:'0:31', yt:'bdw1UiIeKW4'},
+  {id:'lane-ends', t:'Your lane is ending. Who goes first?', topic:'Merging', dur:'1:01', yt:'-qYlSQBVnd8'},
+  {id:'truck', t:'Passed a truck: when can you move back?', topic:'Highways', dur:'0:37'}
 ].map(l => ({...l, live:!!l.yt, url:l.yt?'https://www.youtube.com/shorts/'+l.yt:null, href:l.yt?'https://www.youtube.com/shorts/'+l.yt:'#', target:l.yt?'_blank':'_self', img:'thumb-'+l.id+'.jpg', status:l.yt?'On YouTube':'Coming soon', tagCls:l.yt?'tag tag-accent':'tag tag-neutral'}));
 const LESSON_URL = Object.fromEntries(LESSONS.filter(l=>l.yt).map(l=>[l.id,l.url]));
 
@@ -373,7 +375,7 @@ const QUESTIONS = [
    e:"On a multi-lane road with a limit of 90 km/h or more, or where a keep left unless overtaking sign applies, stay out of the right lane unless an exception applies, such as overtaking or turning right.", r:"s130", v:"keep-left"},
   {c:'Night driving', q:"Driving at night on high beam, how close can an oncoming car get before you must dip?",
    o:["50 metres","100 metres","200 metres","Only when they flash you"], a:2,
-   e:"Switch to low beam when an oncoming car is less than 200 metres away, and when you're less than 200 metres behind a car.", r:"s218"},
+   e:"Switch to low beam when an oncoming car is less than 200 metres away, and when you're less than 200 metres behind a car.", r:"s218", v:"high-beam"},
   {c:'Emergency vehicles', q:"An emergency vehicle with lights and siren is coming up behind you. What do you do?",
    o:["Stop exactly where you are","Speed up to stay ahead of it","Move out of its path as soon as it's safe","Keep driving as normal"], a:2,
    e:"Never move into its path, and move out of its way as soon as it's safe to do so.", r:"s78"}
