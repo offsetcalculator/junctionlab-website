@@ -26,7 +26,6 @@
           <a href="#" onClick="{{ goQuiz }}" aria-current="{{ curQuiz }}">Practice test</a>
         </nav>
       </sc-if>
-      <span class="tag tag-outline" style="gap:6px;font-size:12px;padding:4px 10px"><i class="ph ph-map-pin"></i>QLD rules</span>
     </div>
   </header>
 
@@ -39,7 +38,7 @@
             <div style="display:flex;flex-direction:column;gap:var(--space-8)">
               <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
                 <span class="tag tag-accent">Australian road rules</span>
-                <span class="text-muted" style="font-size:13px">Queensland live · other states coming soon</span>
+                <span class="text-muted" style="font-size:13px">Made for drivers in Australia</span>
               </div>
               <h1 style="font-size:clamp(38px,6.2cqi,74px);line-height:1.02;letter-spacing:-0.035em;margin:0;text-wrap:balance">See the road rule before you drive it.</h1>
               <p style="font-size:clamp(16px,1.8cqi,19px);color:var(--color-neutral-300);max-width:44ch;margin:0;text-wrap:pretty">Short 3D lessons that show each rule on a real street, and a free practice test that explains every answer.</p>
@@ -56,7 +55,7 @@
             <div class="card elev-md" style="padding:clamp(16px,2.4cqi,28px);gap:var(--space-4);border-radius:var(--radius-lg)">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3)">
                 <span class="card-kicker">Try one now · Merging</span>
-                <span class="text-muted" style="font-size:12px">QLD rules s148</span>
+                <span class="text-muted" style="font-size:12px">Rule 148</span>
               </div>
               <img src="thumb-lane-ends.jpg" alt="Two cars where the left lane ends" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 62%;border-radius:var(--radius-md)">
               <div style="font-size:clamp(17px,1.8cqi,20px);line-height:1.35;font-weight:500;text-wrap:pretty">Your lane is ending and a lane line runs right to the end. A car is beside you. Who must give way?</div>
@@ -80,7 +79,7 @@
               <div style="display:flex;flex-direction:column;gap:var(--space-6)">
                 <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
                   <span class="tag tag-accent">Australian road rules</span>
-                  <span class="text-muted" style="font-size:13px">Queensland live · other states coming soon</span>
+                  <span class="text-muted" style="font-size:13px">Made for drivers in Australia</span>
                 </div>
                 <h1 style="font-size:clamp(40px,7cqi,84px);line-height:1;letter-spacing:-0.04em;margin:0;text-wrap:balance">Who goes first? Watch it, then you'll know.</h1>
               </div>
@@ -183,7 +182,7 @@
           <div style="display:flex;flex-direction:column;gap:var(--space-3)">
             <div class="text-muted" style="font-size:13px"><a href="#" onClick="{{ goHome }}">Home</a> › Lessons</div>
             <h1 style="font-size:clamp(32px,5cqi,52px);letter-spacing:-0.03em;margin:0">All lessons</h1>
-            <p class="text-muted" style="margin:0;max-width:56ch">Australian road rules, one situation at a time. Queensland lessons are live; other states are on the way.</p>
+            <p class="text-muted" style="margin:0;max-width:56ch">Australian road rules, one situation at a time.</p>
             <p class="text-muted" style="margin:0;font-size:13px;max-width:64ch;display:flex;gap:6px;align-items:flex-start"><i class="ph ph-info" style="margin-top:3px"></i><span>Lessons show common situations in a simplified way. Road rules can change: always follow the signs.</span></p>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-8);align-items:center;justify-content:space-between">
@@ -191,11 +190,6 @@
               <sc-for list="{{ cats }}" as="c" hint-placeholder-count="7">
                 <button class="{{ c.cls }}" onClick="{{ c.onClick }}" style="padding:6px 12px;font-size:13px">{{ c.name }}</button>
               </sc-for>
-            </div>
-            <div style="display:inline-flex;border:1px solid var(--color-divider);border-radius:var(--radius-md);overflow:hidden;font-size:13px">
-              <span style="padding:6px 12px;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent)">QLD</span>
-              <span style="padding:6px 12px;border-left:1px solid var(--color-divider);opacity:0.45">NSW · soon</span>
-              <span style="padding:6px 12px;border-left:1px solid var(--color-divider);opacity:0.45">VIC · soon</span>
             </div>
           </div>
           <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
@@ -229,13 +223,13 @@
               <div style="display:flex;flex-direction:column;gap:var(--space-6)">
                 <div class="text-muted" style="font-size:13px"><a href="#" onClick="{{ goHome }}">Home</a> › Practice test</div>
                 <h1 style="font-size:clamp(32px,5cqi,52px);letter-spacing:-0.03em;margin:0;text-wrap:balance">Could you pass the learner test today?</h1>
-                <p style="margin:0;font-size:17px;color:var(--color-neutral-300);max-width:52ch;text-wrap:pretty">10 questions on the Queensland rules people get wrong most. Each answer is explained, with a lesson to watch where we have one.</p>
+                <p style="margin:0;font-size:17px;color:var(--color-neutral-300);max-width:52ch;text-wrap:pretty">10 questions on the road rules people get wrong most. Each answer is explained, with a lesson to watch where we have one.</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4)">
                   <div class="card elev-sm" style="padding:var(--space-6)"><span class="card-title">10 questions</span><span class="card-body">About 5 minutes</span></div>
                   <div class="card elev-sm" style="padding:var(--space-6)"><span class="card-title">Every answer explained</span><span class="card-body">With the rule number, and a lesson to watch where we have one.</span></div>
                 </div>
                 <div><button class="btn btn-primary" onClick="{{ beginQuiz }}" style="font-size:15px;padding:12px 22px">Start the test <i class="ph ph-arrow-right"></i></button></div>
-                <p class="text-muted" style="margin:0;font-size:13px;max-width:60ch">This is a practice test made by JunctionLab, not the official learner test. Use it to study alongside the Queensland Road Rules.</p>
+                <p class="text-muted" style="margin:0;font-size:13px;max-width:60ch">This is a practice test made by JunctionLab, not the official learner test. Use it to study alongside the official road rules where you drive.</p>
               </div>
             </sc-if>
 
@@ -263,7 +257,7 @@
                     <div style="font-weight:600;color:{{ verdictColor }}">{{ verdict }}</div>
                     <p style="margin:0;color:var(--color-neutral-200)">{{ Q.e }}</p>
                     <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
-                      <span class="tag tag-neutral">QLD rules {{ Q.r }}</span>
+                      <span class="tag tag-neutral">Rule {{ ruleNo }}</span>
                       <sc-if value="{{ Q.v }}" hint-placeholder-val="{{ false }}"><a class="btn btn-ghost" href="{{ watchUrl }}" target="_blank" rel="noopener"><i class="ph ph-play-circle"></i>Watch the lesson</a></sc-if>
                     </div>
                   </div>
@@ -318,7 +312,7 @@
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:var(--space-2);box-sizing:border-box;margin:0 -16px;padding:var(--space-4) 16px;text-align:justify;hyphens:auto;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);font-size:11px;line-height:1.5;color:var(--color-neutral-400)">
-        <p style="margin:0"><span style="color:var(--color-neutral-200);font-weight:500">General information only, as per the Queensland Road Rules in force on 15 November 2026.</span> Not legal advice. Road rules differ between states and can change: always follow the signs. JunctionLab is an independent channel. The practice test is written by JunctionLab and is not the official test.</p>
+        <p style="margin:0"><span style="color:var(--color-neutral-200);font-weight:500">General information only.</span> Not legal advice. Road rules differ between states and can change: always follow the signs. JunctionLab is an independent channel. The practice test is written by JunctionLab and is not the official test.</p>
         <p style="margin:0">© 2026 JunctionLab. Videos may not be reused without permission.</p>
       </div>
     </div>
@@ -451,7 +445,7 @@ class Component extends DCLogic {
       onEmail:e=>this.setState({email:e.target.value}),
       sendSheet:()=>{ if(/\S+@\S+\.\S+/.test(s.email)) this.setState({sent:true}); },
       qIsStart:s.qStage==='start', qIsQ:s.qStage==='q', qIsResult:s.qStage==='result',
-      Q, watchUrl:Q.v?LESSON_URL[Q.v]:null, qImg:Q.d?'thumb-'+Q.d+'.jpg':null, opts, answered,
+      Q, ruleNo:String(Q.r||'').replace(/^s/,''), watchUrl:Q.v?LESSON_URL[Q.v]:null, qImg:Q.d?'thumb-'+Q.d+'.jpg':null, opts, answered,
       qNum:s.qi+1, qTotal:QUESTIONS.length, score:s.score,
       progress:((s.qi+(answered?1:0))/QUESTIONS.length*100)+'%',
       verdict:answered&&s.picked===Q.a?'Correct':'Not quite', verdictColor:answered&&s.picked===Q.a?OK:BAD,
